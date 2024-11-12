@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@quantum-scribe/source": "file:../.."
+  }
+}
