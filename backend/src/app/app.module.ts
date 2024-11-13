@@ -1,6 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { ProjectModule } from './project/project.module';
+import { TaskModule } from './task/task.module';
+import { EpicModule } from './epic/epic.module';
+import { UserStoryModule } from './userstory/userstory.module';
 
 @Module({
   imports: [
@@ -16,13 +21,16 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: ['dist/**/*.entity{.ts,.js}'],
-        synchronize: true, // Set to false in production
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: true,
       }),
       inject: [ConfigService],
     }),
+    AuthModule,
+    ProjectModule,
+    TaskModule,
+    EpicModule,
+    UserStoryModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
