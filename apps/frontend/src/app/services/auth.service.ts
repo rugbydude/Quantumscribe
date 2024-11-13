@@ -3,93 +3,98 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
-// TODO: Create environment file with proper configuration
-const environment = {
-  apiUrl: 'http://localhost:3000' // Default development API URL
-};
+import { environment } from '../../environments/environment';
 
 interface AuthResponse {
-  accessToken: string;
-  user: {
-    id: string;
-    email: string;
-    roles: string[];
-  };
+    accessToken: string;
+    user: User;
 }
 
-interface User {
-  id: string;
-  email: string;
-  roles: string[];
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  private readonly API_URL = `${environment.apiUrl}/auth`;
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
-
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private jwtHelper: JwtHelperService
-  ) {
-    this.checkStoredToken();
-  }
-
-  register(registerData: {
+interface RegisterData {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
-  }): Observable<any> {
-    return this.http.post(`${this.API_URL}/register`, registerData);
-  }
+}
 
-  login(credentials: { email: string; password: string }): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/login`, credentials).pipe(
-      tap(response => {
-        localStorage.setItem('token', response.accessToken);
-        this.currentUserSubject.next(response.user);
-      })
-    );
-  }
+interface LoginCredentials {
+    email: string;
+    password: string;
+}
 
-  logout(): void {
-    localStorage.removeItem('token');
-    this.currentUserSubject.next(null);
-    this.router.navigate(['/login']);
-  }
+interface User {
+    id: string;
+    email: string;
+    roles: string[];
+}
 
-  isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-    return token ? !this.jwtHelper.isTokenExpired(token) : false;
-  }
+interface DecodedToken {
+    sub: string;
+    email: string;
+    roles: string[];
+}
 
-  getCurrentUserRoles(): string[] {
-    return this.currentUserSubject.value?.roles || [];
-  }
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthService {
+    private readonly API_URL = `${environment.apiUrl}/auth`;
+    private currentUserSubject = new BehaviorSubject<User | null>(null);
+    public currentUser$ = this.currentUserSubject.asObservable();
 
-  private checkStoredToken(): void {
-    const token = localStorage.getItem('token');
-    if (token && !this.jwtHelper.isTokenExpired(token)) {
-      const decodedToken = this.jwtHelper.decodeToken(token);
-      this.currentUserSubject.next({
-        id: decodedToken.sub,
-        email: decodedToken.email,
-        roles: decodedToken.roles || []
-      });
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+        private jwtHelper: JwtHelperService
+    ) {
+        this.checkStoredToken();
     }
-  }
 
-  hasRole(role: string): boolean {
-    return this.getCurrentUserRoles().includes(role);
-  }
+    register(registerData: RegisterData): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(`${this.API_URL}/register`, registerData);
+    }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
+    login(credentials: LoginCredentials): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(`${this.API_URL}/login`, credentials).pipe(
+            tap(response => {
+                localStorage.setItem('token', response.accessToken);
+                this.currentUserSubject.next(response.user);
+            })
+        );
+    }
+
+    logout(): void {
+        localStorage.removeItem('token');
+        this.currentUserSubject.next(null);
+        this.router.navigate(['/login']);
+    }
+
+    isAuthenticated(): boolean {
+        const token = localStorage.getItem('token');
+        return token ? !this.jwtHelper.isTokenExpired(token) : false;
+    }
+
+    getCurrentUserRoles(): string[] {
+        return this.currentUserSubject.value?.roles || [];
+    }
+
+    private checkStoredToken(): void {
+        const token = localStorage.getItem('token');
+        if (token && !this.jwtHelper.isTokenExpired(token)) {
+            const decodedToken = this.jwtHelper.decodeToken(token) as DecodedToken;
+            this.currentUserSubject.next({
+                id: decodedToken.sub,
+                email: decodedToken.email,
+                roles: decodedToken.roles || []
+            });
+        }
+    }
+
+    hasRole(role: string): boolean {
+        return this.getCurrentUserRoles().includes(role);
+    }
+
+    getToken(): string | null {
+        return localStorage.getItem('token');
+    }
 }
