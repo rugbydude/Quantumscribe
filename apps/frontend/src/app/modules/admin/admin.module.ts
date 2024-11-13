@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { AdminDashboardComponent } from '../../components/admin/admin-dashboard.component';
 import { UserManagementComponent } from '../../components/admin/user-management.component';
-import { EditUserRolesDialog } from '../../components/admin/edit-user-roles.dialog';
+import { EditUserRolesComponent } from '../../components/admin/edit-user-roles.dialog';
 import { ConfirmDialogComponent } from '../../components/shared/confirm-dialog.component';
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
   declarations: [
     AdminDashboardComponent,
     UserManagementComponent,
-    EditUserRolesDialog,
+    EditUserRolesComponent,
     ConfirmDialogComponent
   ],
   imports: [

@@ -22,18 +22,18 @@ import { User } from '../../models/user.model';
     </mat-dialog-actions>
   `
 })
-export class EditUserRolesDialog {
+export class EditUserRolesComponent {
   rolesForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<EditUserRolesDialog>,
+    private dialogRef: MatDialogRef<EditUserRolesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { user: User }
   ) {
     this.rolesForm = this.fb.group({
-      ADMIN: [data.user.roles.includes('ADMIN')],
-      PROJECT_MANAGER: [data.user.roles.includes('PROJECT_MANAGER')],
-      TEAM_MEMBER: [data.user.roles.includes('TEAM_MEMBER')]
+      ADMIN: [data.user.role === 'ADMIN'],
+      PROJECT_MANAGER: [data.user.role === 'PROJECT_MANAGER'],
+      TEAM_MEMBER: [data.user.role === 'TEAM_MEMBER']
     });
   }
 
@@ -43,7 +43,7 @@ export class EditUserRolesDialog {
 
   onSave(): void {
     const selectedRoles = Object.entries(this.rolesForm.value)
-      .filter(([_, selected]) => selected)
+      .filter(([, selected]) => selected)
       .map(([role]) => role);
     this.dialogRef.close(selectedRoles);
   }

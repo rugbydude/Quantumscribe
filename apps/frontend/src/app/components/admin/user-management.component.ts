@@ -4,7 +4,7 @@ import { AdminService } from '../../services/admin.service';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user.model';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog.component';
-import { EditUserRolesDialog } from './edit-user-roles.dialog';
+import { EditUserRolesComponent } from './edit-user-roles.dialog';
 
 @Component({
   selector: 'app-user-management',
@@ -72,7 +72,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   editUserRoles(user: User) {
-    const dialogRef = this.dialog.open(EditUserRolesDialog, {
+    const dialogRef = this.dialog.open(EditUserRolesComponent, {
       width: '400px',
       data: { user }
     });
@@ -105,7 +105,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-    // Implement filtering logic
+    // TODO: Implement filtering logic using the input value
+    (event.target as HTMLInputElement).value.toLowerCase();
   }
 }

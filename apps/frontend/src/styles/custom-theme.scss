@@ -1,0 +1,28 @@
+// Custom Material component styles
+.mat-card {
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1) !important;
+}
+
+.mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-table {
+    width: 100%;
+}
+
+.mat-row:hover {
+    background-color: rgba(0,0,0,.04);
+}
+
+.mat-column-actions {
+    width: 100px;
+    text-align: right;
+}

@@ -3,7 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from '../../../environments/environment';
+
+// TODO: Create environment file with proper configuration
+const environment = {
+  apiUrl: 'http://localhost:3000' // Default development API URL
+};
 
 interface AuthResponse {
   accessToken: string;
