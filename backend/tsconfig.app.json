@@ -1,21 +1,24 @@
 {
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
   "compilerOptions": {
+    "declarationMap": true,
+    "declaration": true,
     "composite": true,
     "types": [
       "node"
     ],
-    "declarationMap": true,
     "outDir": "./dist/out-tsc/app",
-    "declaration": true
+    "inlineSources": true,
+    "sourceMap": true
   },
   "include": [
-    "apps/quantum-scribe/src/**/*.d.ts"
+    "src/**/*.ts",
+    "apps/**/*.ts"
   ],
-  "extends": "./tsconfig.json",
   "files": [],
-  "exclude": [
-    "apps/quantum-scribe/src/test.ts",
-    "apps/quantum-scribe/src/**/*.spec.ts",
-    "apps/quantum-scribe/src/**/*.test.ts"
-  ]
+  "extends": "./tsconfig.json"
 }

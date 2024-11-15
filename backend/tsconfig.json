@@ -1,23 +1,26 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "emitDecoratorMetadata": true,
-    "target": "es2015",
-    "outDir": "./dist",
-    "declaration": true,
-    "strict": true,
-    "incremental": true,
-    "moduleResolution": "node",
     "composite": true,
-    "baseUrl": "./"
+    "target": "es2015",
+    "module": "commonjs", 
+    "moduleResolution": "node",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true
   },
   "include": [
-    "apps/**/*.ts",
     "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ],
   "extends": "../tsconfig.base.json",
   "references": [
@@ -25,11 +28,7 @@
       "path": "./tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "./tsconfig.spec.json" 
     }
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
   ]
 }
