@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{html,ts}",
+    "./apps/quantum-scribe/src/**/*.{html,ts}",
+    "./apps/quantum-scribe/src/**/*.component.ts"
   ],
   theme: {
     extend: {},

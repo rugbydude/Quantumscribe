@@ -13,7 +13,9 @@
     "emitDecoratorMetadata": true,
     "importHelpers": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "files": [],
   "include": [],
@@ -22,16 +24,10 @@
       "path": "./tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "../frontend/tsconfig.spec.json"
     },
     {
-      "path": "./tsconfig.editor.json"
+      "path": "../frontend/tsconfig.editor.json"
     }
-  ],
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+  ]
 }
