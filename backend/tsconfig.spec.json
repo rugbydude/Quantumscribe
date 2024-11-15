@@ -2,11 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/out-tsc/spec",
+    "module": "commonjs",
     "types": ["jest", "node"]
   },
   "include": [
-    "apps/quantum-scribe/src/**/*.spec.ts",
-    "apps/quantum-scribe/src/**/*.test.ts",
-    "apps/quantum-scribe/src/**/*.d.ts"
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.d.ts"
   ]
 }

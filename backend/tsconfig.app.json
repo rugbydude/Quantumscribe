@@ -1,17 +1,18 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
+    "composite": true,
+    "types": [
+      "node"
+    ],
+    "declarationMap": true,
     "outDir": "./dist/out-tsc/app",
-    "types": ["node"]
+    "declaration": true
   },
-  "files": [
-    "apps/quantum-scribe/src/main.ts",
-    "apps/quantum-scribe/src/main.server.ts",
-    "apps/quantum-scribe/server.ts"
-  ],
   "include": [
     "apps/quantum-scribe/src/**/*.d.ts"
   ],
+  "extends": "./tsconfig.json",
+  "files": [],
   "exclude": [
     "apps/quantum-scribe/src/test.ts",
     "apps/quantum-scribe/src/**/*.spec.ts",
